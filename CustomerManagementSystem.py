@@ -61,6 +61,27 @@ class Customer:
         f = open("D:/cetpa/cmspickle.txt", "rb")
         Customer.cuslist=pickle.load(f)
         f.close()
+        
+    @staticmethod
+    def savetoJson():
+        f = open("D:/cetpa/cmsjson.txt", "w")
+        json.dump(Customer.cuslist,f,default=Customer.convtoDict)
+        f.close()
+
+    @staticmethod
+    def convtoObj(d):   #d={"id": "10", "name": "Vikas", "age": "39", "mob": "1234"}
+        cus=Customer()
+        cus.id=d["id"]
+        cus.name = d["name"]
+        cus.age = d["age"]
+        cus.mob = d["mob"]
+        return cus
+
+    @staticmethod
+    def loadfromJson():
+        f = open("D:/cetpa/cmsjson.txt", "r")
+        Customer.cuslist = json.load(f,object_hook=Customer.convtoObj)
+        f.close()
 
 
       
